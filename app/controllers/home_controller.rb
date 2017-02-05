@@ -4,11 +4,11 @@ class HomeController < ApplicationController
   end
 
   def show
-    blog_post = 'hello world'
+    blog_post = render_to_string(:partial => "#{params[:post_name]}.html.erb")
     respond_to do |format|
       format.json do
         render :json => {
-          :blog_post => blog_post
+          :blogPost => blog_post
         }
       end
     end

@@ -7,7 +7,7 @@ class Main extends React.Component {
         }
     }
 
-    getPost() {
+    getPost(path) {
         let successHandler = (data) => {
             this.setState({
                 blogPost: data.blogPost
@@ -23,7 +23,7 @@ class Main extends React.Component {
             dataType: 'json',
             contentType: 'application/json',
             accepts: 'application/json',
-            url: '/poll/' + path,
+            url: '/home/show/' + path + '.json',
             success: successHandler.bind(this),
             error: errorHandler.bind(this)
         })
@@ -42,6 +42,9 @@ class Main extends React.Component {
                 />
             </header>
             <main>
+                <BlogPost
+                    blogPost={this.state.blogPost}
+                />
             </main>
             <footer>
             </footer>

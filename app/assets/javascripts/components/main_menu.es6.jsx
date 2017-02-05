@@ -20,7 +20,7 @@ class MainMenu extends React.Component {
                             </a>
                             <ul className="dropdown-menu">
                                 <li>
-                                    <a type="button" onClick={this.getPost('pandas_tutorial')}>Pandas Tutorial</a>
+                                    <a type="button" onClick={this.props.getPost.bind(null, 'pandas_tutorial')}>Pandas Tutorial</a>
                                 </li>
                             </ul>
                         </li>
