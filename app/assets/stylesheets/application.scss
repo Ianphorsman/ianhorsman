@@ -1,2 +1,12 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'jupyter';
+
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+}
