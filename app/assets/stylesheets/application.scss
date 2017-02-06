@@ -2,10 +2,14 @@
 @import 'bootstrap';
 @import 'jupyter';
 
+header {
+  padding: 0 10%;
+  margin-bottom: 50px;
+}
 body {
   font-family: 'Raleway', sans-serif;
+  padding: 0 10%;
 }
-
 div {
   margin: 0;
   padding: 0;
