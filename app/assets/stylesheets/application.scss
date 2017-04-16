@@ -1,5 +1,7 @@
+@import 'colors';
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'ipython';
 @import 'jupyter';
 
 header {
@@ -8,9 +10,61 @@ header {
 }
 body {
   font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
   padding: 0 10%;
+  background-color: rgb(245, 245, 245);
 }
 div {
   margin: 0;
   padding: 0;
+}
+
+.navbar-default {
+  padding: 0 10%;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 2rem;
+  color: $olive !important;
+}
+
+[data-color='light-blue'] {
+  a {
+    color: darken($light-blue, 10%) !important;
+    font-weight: bold;
+  }
+  ul li {
+    color: $light-blue;
+  }
+}
+
+[data-color='cranberry'] {
+  a {
+    color: darken($cranberry, 10%) !important;
+    font-weight: bold;
+  }
+  ul li {
+    color: $cranberry;
+  }
+}
+
+[data-color='olive'] {
+  a {
+    color: darken($olive, 10%) !important;
+    font-weight: bold;
+  }
+  ul li {
+    color: $olive;
+  }
+}
+
+[data-color='light-green'] {
+  a {
+    color: darken($light-green, 10%) !important;
+    font-weight: bold;
+  }
+  ul li {
+    color: $light-green;
+  }
 }
