@@ -23,11 +23,15 @@ default: &default
 development:
   <<: *default
   database: ianhorsman_development
+  username: <%= ENV['IANHORSMAN_DATABASE_USERNAME'] %>
+  password: <%= ENV['IANHORSMAN_DATABASE_PASSWORD'] %>
 
 
 test:
   <<: *default
   database: ianhorsman_test
+  username: <%= ENV['IANHORSMAN_DATABASE_USERNAME'] %>
+  password: <%= ENV['IANHORSMAN_DATABASE_PASSWORD'] %>
 
 production:
   <<: *default

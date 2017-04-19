@@ -5,18 +5,20 @@
 @import 'jupyter';
 
 header {
-  padding: 0 10%;
-  margin-bottom: 50px;
 }
 body {
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
-  padding: 0 10%;
   background-color: rgb(245, 245, 245);
 }
 div {
   margin: 0;
   padding: 0;
+}
+a {
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .navbar-default {
@@ -28,6 +30,118 @@ div {
   font-size: 2rem;
   color: $olive !important;
 }
+
+/* Splash Page */
+
+$left-primary: $ghost;
+$left-secondary: $ashphalt;
+$right-primary: $midnight-blue;
+$right-secondary: $cranberry;
+
+#splash {
+  height: 100vh;
+  width: 100vw;
+  margin-top: 0;
+  margin-bottom: 0;
+  p {
+    padding-left: 0;
+  }
+  section {
+    padding-top: 10vh;
+    margin: 0;
+    height: inherit;
+    &:first-child {
+      background-color: $ghost;
+      h1 {
+        padding-top: 2rem;
+        color: $midnight-blue;
+        font-size: 5rem;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      h4 {
+        color: $cranberry;
+        text-transform: capitalize;
+        font-variant: small-caps;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
+      }
+      .social-link {
+        color: $midnight-blue;
+        font-weight: bold;
+        margin-left: 0.5rem;
+        &:hover {
+          color: $ashphalt;
+        }
+      }
+    }
+    &:nth-child(2) {
+      background-color: $midnight-blue;
+      .portfolio-card {
+        padding: 2rem;
+        position: relative;
+        cursor: pointer;
+        transition: background-color .2s;
+        border-bottom: solid 1px $ashphalt;
+        h3 {
+          color: $ghost;
+          margin-bottom: 2rem;
+          transition: color .2s;
+        }
+        .tag-list {
+          padding: 1rem 0;
+          span {
+            padding: 0.75rem;
+            font-size: 1rem;
+            text-transform: capitalize;
+            font-variant: small-caps;
+            font-weight: bold;
+            margin-left: 0;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            margin-right: 1rem;
+            background-color: $ashphalt;
+            box-shadow: 0 0 5px 1px darken($ashphalt, 10%);
+            border-radius: 5px;
+            color:$cranberry;
+            transition: background-color 0.2s, box-shadow 0.2s;
+          }
+        }
+        &:hover {
+          background-color: $ghost;
+          transition: background-color .2s;
+          h3 {
+            color: $ashphalt;
+            transition: color .2s;
+          }
+          .caret {
+            color: $ashphalt;
+          }
+          span {
+            background-color: $silver;
+            box-shadow: 0 0 5px 1px darken($silver, 10%);
+            transition: background-color 0.2s, box-shadow 0.2s;
+          }
+        }
+        .caret {
+          position: absolute;
+          bottom: 50%;
+          right: 1rem;
+          color:$left-primary;
+        }
+      }
+    }
+  }
+}
+
+/* Portfolio Cards */
+
+.portfolio-card {
+
+}
+
+/* Colors */
 
 [data-color='light-blue'] {
   a {

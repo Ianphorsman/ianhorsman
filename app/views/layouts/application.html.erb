@@ -41,7 +41,9 @@
 
   <body>
     <%= react_component 'Main',
-                        blogPost: 'none'
+                        blogPost: @props[:blogPost],
+                        routeToBlog: @props[:routeToBlog],
+                        enableSplash: true
     %>
   </body>
 </html>

@@ -4,13 +4,16 @@ class Main extends React.Component {
         super(props)
         this.state = {
             blogPost: this.props.blogPost,
+            routeToBlog: this.props.routeToBlog,
+            enableSplash: this.props.enableSplash,
         }
     }
 
     getPost(path) {
         let successHandler = (data) => {
             this.setState({
-                blogPost: data.blogPost
+                blogPost: data.blogPost,
+                routeToBlog: data.routeToBlog,
             })
         }
         let errorHandler = (data) => {
@@ -29,6 +32,32 @@ class Main extends React.Component {
         })
     }
 
+    showPost() {
+        if (this.state.routeToBlog) {
+            return (
+                <BlogPost
+                    blogPost={this.state.blogPost}
+                />
+            )
+        }
+    }
+
+    renderMenu() {
+        if (this.state.enableSplash) {
+            return(
+                <Splash
+
+                />
+            )
+        } else {
+            return(
+                <MainMenu
+                    getPost={this.getPost.bind(this)}
+                />
+            )
+        }
+    }
+
 
 
 
@@ -37,14 +66,10 @@ class Main extends React.Component {
     return(
         <div>
             <header>
-                <MainMenu
-                    getPost={this.getPost.bind(this)}
-                />
+                {this.renderMenu()}
             </header>
             <main>
-                <BlogPost
-                    blogPost={this.state.blogPost}
-                />
+                {this.showPost()}
             </main>
             <footer>
             </footer>
