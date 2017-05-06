@@ -4,9 +4,35 @@ class Main extends React.Component {
         super(props)
         this.state = {
             blogPost: this.props.blogPost,
+            blogPostList: this.props.blogPostList,
             routeToBlog: this.props.routeToBlog,
+            routeToBlogPostList: this.props.routeToBlogPostList,
+            blogPostData: this.props.blogPostData,
             enableSplash: this.props.enableSplash,
         }
+    }
+
+    getBlogPostList(path) {
+        let successHandler = (data) => {
+            this.setState({
+                blogPostList: data.blogPostList,
+                routeToBlogPostList: data.routeToBlogPostList,
+            })
+        }
+        let errorHandler = (data) => {
+        }
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            contentType: 'application/json',
+            accepts: 'application/json',
+            url: '/home/show/' + path + '.json',
+            success: successHandler.bind(this),
+            error: errorHandler.bind(this)
+        })
     }
 
     getPost(path) {
@@ -32,6 +58,16 @@ class Main extends React.Component {
         })
     }
 
+    showBlogPostList() {
+        if (this.state.routeToBlogPostList) {
+            return (
+                <BlogPostList
+                    blogPostList={this.state.blogPostList}
+                />
+            )
+        }
+    }
+
     showPost() {
         if (this.state.routeToBlog) {
             return (
@@ -46,7 +82,8 @@ class Main extends React.Component {
         if (this.state.enableSplash) {
             return(
                 <Splash
-
+                    getBlogPostList={this.getBlogPostList.bind(this)}
+                    blogPostData={this.state.blogPostData}
                 />
             )
         } else {
@@ -70,6 +107,7 @@ class Main extends React.Component {
             </header>
             <main>
                 {this.showPost()}
+                {this.showBlogPostList()}
             </main>
             <footer>
             </footer>

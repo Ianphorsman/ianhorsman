@@ -42,7 +42,10 @@
   <body>
     <%= react_component 'Main',
                         blogPost: @props[:blogPost],
+                        blogPostList: @props[:blogPostList],
                         routeToBlog: @props[:routeToBlog],
+                        routeToBlogPostList: @props[:routeToBlogPostList],
+                        blogPostData: @props[:blogPostData],
                         enableSplash: true
     %>
   </body>

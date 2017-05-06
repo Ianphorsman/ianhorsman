@@ -1,4 +1,24 @@
 class Splash extends React.Component {
+
+    renderTag(tag) {
+        return(
+            <span>{tag}</span>
+        )
+    }
+
+    renderPortfolioCard(id) {
+        const blogPostList = this.props.blogPostData[id].blogPostList
+        return(
+            <div className="portfolio-card" onClick={this.props.getBlogPostList.bind(null, blogPostList.id)}>
+                <h3>{blogPostList.title}</h3>
+                <p className="tag-list">
+                    {blogPostList.tags.split('_').map(this.renderTag)}
+                </p>
+                <div className="caret"><i className="fa fa-angle-down"></i></div>
+            </div>
+        )
+    }
+
   render () {
     return(
         <div id="splash" className="row">
@@ -15,24 +35,7 @@ class Splash extends React.Component {
             </section>
             <section className="col-md-6 col-sm-0 row">
                 <div className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                    <div className="portfolio-card">
-                        <h3>Data Preprocessing Tutorials</h3>
-                        <p className="tag-list">
-                            <span>Python</span>
-                            <span>Pandas</span>
-                            <span>Data Analysis</span>
-                        </p>
-                        <div className="caret"><i className="fa fa-angle-down"></i></div>
-                    </div>
-                    <div className="portfolio-card">
-                        <h3>Neural Networks from Scratch with Numpy</h3>
-                        <p className="tag-list">
-                            <span>Python</span>
-                            <span>Numpy</span>
-                            <span>Machine Learning</span>
-                        </p>
-                        <div className="caret"><i className="fa fa-angle-down"></i></div>
-                    </div>
+                    {Object.keys(this.props.blogPostData).map(this.renderPortfolioCard.bind(this))}
                 </div>
             </section>
         </div>
