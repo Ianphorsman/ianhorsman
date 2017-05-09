@@ -6,10 +6,9 @@ class ApplicationController < ActionController::Base
   def react_default_props
     @props = {
         :blogPost => nil,
-        :routeToBlog => false,
-        :routeToBlogPostList => false,
         :blogPostList => nil,
-        :blogPostData => BlogPostList.get_blog_data
+        :blogPostData => BlogPostList.get_blog_data,
+        :routeTo => 'splash'
     }
   end
   helper_method :react_default_props

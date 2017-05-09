@@ -38,6 +38,24 @@ $left-secondary: $ashphalt;
 $right-primary: $midnight-blue;
 $right-secondary: $cranberry;
 
+.fadein-enter {
+  opacity: 0;
+}
+.fadein-enter.fadein-enter-active {
+  opacity: 1;
+  transition: opacity .5s;
+}
+.fadein-leave {
+  opacity: 1;
+}
+.fadein-leave.fadein-leave-active {
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+
+
+
 #splash {
   height: 100vh;
   width: 100vw;

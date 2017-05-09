@@ -18,5 +18,6 @@ module Ianhorsman
         ENV[key.to_s] = value
       end if File.exists? env_file
     end
+    config.react.addons = true
   end
 end

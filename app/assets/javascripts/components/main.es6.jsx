@@ -5,37 +5,19 @@ class Main extends React.Component {
         this.state = {
             blogPost: this.props.blogPost,
             blogPostList: this.props.blogPostList,
-            routeToBlog: this.props.routeToBlog,
-            routeToBlogPostList: this.props.routeToBlogPostList,
             blogPostData: this.props.blogPostData,
-            enableSplash: this.props.enableSplash,
+            routeTo: this.props.routeTo,
         }
     }
 
-    getBlogPostList(path) {
-        let successHandler = (data) => {
-            this.setState({
-                blogPostList: data.blogPostList,
-                routeToBlogPostList: data.routeToBlogPostList,
-            })
-        }
-        let errorHandler = (data) => {
-        }
-        $.ajax({
-            method: 'GET',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            dataType: 'json',
-            contentType: 'application/json',
-            accepts: 'application/json',
-            url: '/home/show/' + path + '.json',
-            success: successHandler.bind(this),
-            error: errorHandler.bind(this)
+    renderBlogPostList(blogPostListId) {
+        this.setState({
+            blogPostList: blogPostListId,
+            routeTo: 'blogPostList'
         })
     }
 
-    getPost(path) {
+    getBlogPost(path) {
         let successHandler = (data) => {
             this.setState({
                 blogPost: data.blogPost,
@@ -58,15 +40,6 @@ class Main extends React.Component {
         })
     }
 
-    showBlogPostList() {
-        if (this.state.routeToBlogPostList) {
-            return (
-                <BlogPostList
-                    blogPostList={this.state.blogPostList}
-                />
-            )
-        }
-    }
 
     showPost() {
         if (this.state.routeToBlog) {
@@ -78,36 +51,26 @@ class Main extends React.Component {
         }
     }
 
-    renderMenu() {
-        if (this.state.enableSplash) {
-            return(
-                <Splash
-                    getBlogPostList={this.getBlogPostList.bind(this)}
-                    blogPostData={this.state.blogPostData}
-                />
-            )
-        } else {
-            return(
-                <MainMenu
-                    getPost={this.getPost.bind(this)}
-                />
-            )
-        }
+    renderMain() {
+        return(
+            <Splash
+                renderBlogPostList={this.renderBlogPostList.bind(this)}
+                blogPostData={this.state.blogPostData}
+                routeTo={this.state.routeTo}
+                getBlogPost={this.getBlogPost.bind(this)}
+                blogPostList={this.state.blogPostList}
+            />
+        )
     }
 
 
-
-
-    
   render () {
     return(
         <div>
             <header>
-                {this.renderMenu()}
             </header>
             <main>
-                {this.showPost()}
-                {this.showBlogPostList()}
+                {this.renderMain()}
             </main>
             <footer>
             </footer>
