@@ -1,8 +1,12 @@
-let TransitionGroup = React.addons.CSSTransitionGroup
 class Splash extends React.Component {
 
-    componentWillReceiveProps() {
+    constructor(props) {
+        super(props)
+        this.state = {
+            routeTo: 'splash',
+            animationContext: 'appear', /* nothing, appear, rendered, leave*/
 
+        }
     }
 
     renderTag(tag) {
@@ -14,7 +18,7 @@ class Splash extends React.Component {
     renderPortfolioCard(id) {
         const blogPostList = this.props.blogPostData[id].blogPostList
         return(
-            <div className="portfolio-card" onClick={this.props.renderBlogPostList.bind(null, blogPostList.id)}>
+            <div className="portfolio-card" onClick={this.props.renderBlogPostList.bind(null, blogPostList.id-1)}>
                 <h3>{blogPostList.title}</h3>
                 <p className="tag-list">
                     {blogPostList.tags.split('_').map(this.renderTag)}
@@ -24,24 +28,63 @@ class Splash extends React.Component {
         )
     }
 
-    getAnimationClass() {
-        return null
+
+    componentWillUpdate(nextProps, nextState) {
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.queueRouteTo !== this.state.routeTo) {
+            if (this.state.animationContext === 'rendered') {
+                this.setState({
+                    animationContext: 'leave'
+                })
+            } else if (this.state.animationContext === 'leave') {
+                let that = this
+                setTimeout(function() {
+                    that.setState({
+                        animationContext: 'appear',
+                        routeTo: that.props.queueRouteTo
+                    })
+                }, 100)
+            }
+        } else if (this.state.animationContext === 'appear') {
+            let that = this
+            setTimeout(function() {
+                that.setState({
+                    animationContext: 'rendered'
+                })
+            }, 100)
+        }
+    }
+
+    componentDidMount() {
+        if (this.state.animationContext === 'appear') {
+            this.setState({
+                animationContext: 'rendered'
+            })
+        }
     }
 
     renderBlogPostList() {
-        if (this.props.routeTo === 'splash') {
-            return(
-                    <div key={1} id="blog-post-list" className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 show">
-                        {Object.keys(this.props.blogPostData).map(this.renderPortfolioCard.bind(this))}
-                    </div>
+        if (this.state.routeTo === 'splash') {
+            return (
+                <PortfolioCardList
+                    renderPortfolioCard={this.renderPortfolioCard.bind(this)}
+                    blogPostData={this.props.blogPostData}
+                    animationContext={this.state.animationContext}>
+
+                </PortfolioCardList>
             )
-        } else if (this.props.routeTo === 'blogPostList') {
-            return(
-                    <BlogPostList
-                        getBlogPost={this.props.getBlogPost}
-                        blogPostData={this.props.blogPostData}
-                        blogPostList={this.props.blogPostList}
-                    />
+        } else if (this.state.routeTo === 'blogPostList') {
+            return (
+                <BlogPostList
+                    getBlogPost={this.props.getBlogPost}
+                    blogPostData={this.props.blogPostData}
+                    blogPostList={this.props.blogPostList}
+                    animationContext={this.state.animationContext}
+                    renderPortfolioCardList={this.props.renderPortfolioCardList}
+                />
             )
         }
     }
@@ -49,7 +92,7 @@ class Splash extends React.Component {
   render () {
     return(
         <div id="splash" className="row">
-            <section className="col-md-6 col-sm-12 row">
+            <section id="splash-bio" className="col-md-6 col-sm-12 row">
                 <div className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
                     <h1>Ian Horsman</h1>
                     <h4>Software Developer - Toronto, Canada</h4>
@@ -60,10 +103,8 @@ class Splash extends React.Component {
                         or explore my work here!</p>
                 </div>
             </section>
-            <section className="col-md-6 col-sm-0 row">
-                <TransitionGroup transitionName="fadein">
-                    {this.renderBlogPostList()}
-                </TransitionGroup>
+            <section id="splash-main-nav" ref="navigation" className="col-md-6 col-sm-0 row">
+                {this.renderBlogPostList()}
             </section>
         </div>
     )

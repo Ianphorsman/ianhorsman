@@ -17,6 +17,12 @@ class Main extends React.Component {
         })
     }
 
+    renderPortfolioCardList() {
+        this.setState({
+            routeTo: 'splash'
+        })
+    }
+
     getBlogPost(path) {
         let successHandler = (data) => {
             this.setState({
@@ -55,8 +61,9 @@ class Main extends React.Component {
         return(
             <Splash
                 renderBlogPostList={this.renderBlogPostList.bind(this)}
+                renderPortfolioCardList={this.renderPortfolioCardList.bind(this)}
                 blogPostData={this.state.blogPostData}
-                routeTo={this.state.routeTo}
+                queueRouteTo={this.state.routeTo}
                 getBlogPost={this.getBlogPost.bind(this)}
                 blogPostList={this.state.blogPostList}
             />
