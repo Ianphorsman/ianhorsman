@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   root :to => 'home#index'
 
   get 'home/pandas_tutorial' => 'home#pandas_tutorial'
-  get 'home/show/:post_name' => 'home#show'
+  get 'home/show/:post_id' => 'home#show'
 
 end

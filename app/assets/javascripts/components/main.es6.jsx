@@ -7,19 +7,54 @@ class Main extends React.Component {
             blogPostList: this.props.blogPostList,
             blogPostData: this.props.blogPostData,
             routeTo: this.props.routeTo,
+            queueRouteTo: this.props.routeTo,
+            mainAnimationContext: 'appear',
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.queueRouteTo !== this.state.routeTo) {
+            if (this.state.mainAnimationContext === 'rendered') {
+                this.setState({
+                    mainAnimationContext: 'leave'
+                })
+            } else if (this.state.mainAnimationContext === 'leave') {
+                let that = this
+                setTimeout(function() {
+                    that.setState({
+                        mainAnimationContext: 'appear',
+                        routeTo: that.state.queueRouteTo,
+                    })
+                }, 100)
+            }
+        } else if (this.state.mainAnimationContext === 'appear') {
+            let that = this
+            setTimeout(function() {
+                that.setState({
+                    mainAnimationContext: 'rendered'
+                })
+            }, 100)
+        }
+    }
+
+    componentDidMount() {
+        if (this.state.mainAnimationContext === 'appear') {
+            this.setState({
+                mainAnimationContext: 'rendered'
+            })
         }
     }
 
     renderBlogPostList(blogPostListId) {
         this.setState({
             blogPostList: blogPostListId,
-            routeTo: 'blogPostList'
+            queueRouteTo: 'blogPostList'
         })
     }
 
     renderPortfolioCardList() {
         this.setState({
-            routeTo: 'splash'
+            queueRouteTo: 'splash'
         })
     }
 
@@ -27,7 +62,7 @@ class Main extends React.Component {
         let successHandler = (data) => {
             this.setState({
                 blogPost: data.blogPost,
-                routeToBlog: data.routeToBlog,
+                queueRouteTo: 'blogPost',
             })
         }
         let errorHandler = (data) => {
@@ -46,28 +81,27 @@ class Main extends React.Component {
         })
     }
 
-
-    showPost() {
-        if (this.state.routeToBlog) {
+    renderMain() {
+        if (this.state.routeTo === 'splash' || this.state.routeTo === 'blogPostList') {
+            return (
+                <Splash
+                    renderBlogPostList={this.renderBlogPostList.bind(this)}
+                    renderPortfolioCardList={this.renderPortfolioCardList.bind(this)}
+                    blogPostData={this.state.blogPostData}
+                    queueRouteTo={this.state.routeTo}
+                    getBlogPost={this.getBlogPost.bind(this)}
+                    blogPostList={this.state.blogPostList}
+                />
+            )
+        } else if (this.state.routeTo === 'blogPost') {
             return (
                 <BlogPost
                     blogPost={this.state.blogPost}
-                />
+                    mainAnimationContext={this.state.mainAnimationContext}>
+
+                </BlogPost>
             )
         }
-    }
-
-    renderMain() {
-        return(
-            <Splash
-                renderBlogPostList={this.renderBlogPostList.bind(this)}
-                renderPortfolioCardList={this.renderPortfolioCardList.bind(this)}
-                blogPostData={this.state.blogPostData}
-                queueRouteTo={this.state.routeTo}
-                getBlogPost={this.getBlogPost.bind(this)}
-                blogPostList={this.state.blogPostList}
-            />
-        )
     }
 
 

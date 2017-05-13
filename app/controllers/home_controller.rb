@@ -6,7 +6,8 @@ class HomeController < ApplicationController
   end
 
   def show
-    blog_post = render_to_string(:partial => "#{params[:post_name]}.html")
+    post = BlogPost.find_by_id(params[:post_id])
+    blog_post = render_to_string(:partial => "#{post.html_link}.html")
     respond_to do |format|
       format.json do
         render :json => {

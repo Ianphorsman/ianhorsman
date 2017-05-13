@@ -42,15 +42,27 @@ $right-secondary: $cranberry;
   opacity: 0;
   transition: opacity .1s;
 }
+.fade-long-appear {
+  opacity: 0;
+  transition: opacity .5s;
+}
 
 .fade-rendered {
   opacity: 1;
   transition: opacity .1s;
 }
+.fade-long-rendered {
+  opacity: 1;
+  transition: opacity .5s;
+}
 
 .fade-leave {
   opacity: 0;
   transition: opacity .1s;
+}
+.fade-long-leave {
+  opacity: 0;
+  transition: opacity .5s;
 }
 
 nav {
